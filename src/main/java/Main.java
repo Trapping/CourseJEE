@@ -1,4 +1,4 @@
-import accounts.AccountService;
+import dbSevice.DBService;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -6,9 +6,9 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 public class Main {
     public static void main(String[] args) {
-        AccountService accountService = new AccountService();
-        SignUpServlet signUpServlet = new SignUpServlet(accountService);
-        SignInServlet signInServlet = new SignInServlet(accountService);
+        DBService dbService = new DBService();
+        SignUpServlet signUpServlet = new SignUpServlet(dbService);
+        SignInServlet signInServlet = new SignInServlet(dbService);
 
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.addServlet(new ServletHolder(signUpServlet), "/signup");

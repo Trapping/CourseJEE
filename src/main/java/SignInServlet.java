@@ -1,4 +1,4 @@
-import accounts.AccountService;
+import dbSevice.DBService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class SignInServlet extends HttpServlet {
-    private final AccountService accountService;
+    private final DBService dbService;
 
-    public SignInServlet(AccountService accountService) {
-        this.accountService = accountService;
+    public SignInServlet(DBService dbService) {
+        this.dbService = dbService;
     }
 
     @Override
@@ -25,13 +25,10 @@ public class SignInServlet extends HttpServlet {
             return;
         }
 
-            if (accountService.isUserRegistered(login)) {
-                if (pass.equals(accountService.getUserByLogin(login).getPass())) {
+            if (dbService.isUserRegistered(login)) {
                     resp.setContentType("text/html;charset=utf-8");
-                    resp.getWriter().println("Authorized: " + login);
+                    resp.getWriter().print("Authorized: " + login);
                     resp.setStatus(HttpServletResponse.SC_OK);
-                    accountService.addSession(req.getSession().getId(), accountService.getUserByLogin(login));
-                }
 
             } else {
                 resp.setContentType("text/html;charset=utf-8");
